@@ -1,5 +1,6 @@
 import './App.css';
 import {useState} from "react";
+import { Button, Divider, Card} from 'semantic-ui-react'
 
 
 function App() {
@@ -69,10 +70,10 @@ function App() {
   return (
     <div className='outer-container'>
       {albumsData.map( (album) => 
-        <Card imageUrl={album.cover} albumName={album.title} songs={album.songs}/>
+        <AlbumCard imageUrl={album.cover} albumName={album.title} songs={album.songs}/>
 )
       }
-      {/* <Card imageUrl="https://avatars.mds.yandex.net/i?id=1ac8d782d1391560ca27617e7cfcc7a2f2eba593-10932765-images-thumbs&n=13" albumName="Biile eliel"  /> */}
+
     </div>
   );
 }
@@ -82,16 +83,19 @@ export default App;
 
 
 
-function Card(props){
+function AlbumCard(props){
   const [isOpen, SetIsOpen] = useState(false);
 
   return (
     <div className="card-container">
       <img src={props.imageUrl}></img>
-      <button onClick={() => SetIsOpen(!isOpen)}>{props.albumName}</button>
+      <Button active onClick={() => SetIsOpen(!isOpen)}>{props.albumName}</Button>
+
       <div className={`songs-contanier ${isOpen ? "active" : ""}`}>
-        {props.songs.map( (songname) =>         
-        <Song songName={songname}/>
+        {props.songs.map( (songname) =>
+        <Card className='song-card' fluid >
+          <Song songName={songname}/>
+          </Card>
         )}
       </div>
     </div>
