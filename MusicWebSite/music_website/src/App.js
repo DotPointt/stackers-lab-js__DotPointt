@@ -1,6 +1,7 @@
 import './App.css';
 import {useState} from "react";
 import { Button, Divider, Card} from 'semantic-ui-react'
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Image, Box, Text } from '@chakra-ui/react';
 
 
 function App() {
@@ -68,13 +69,15 @@ function App() {
   ];
 
   return (
-    <div className='outer-container'>
+    <Accordion allowMultiple className='outer-container'>
       {albumsData.map( (album) => 
-        <AlbumCard imageUrl={album.cover} albumName={album.title} songs={album.songs}/>
-)
+        <AccordionItem>
+          <AlbumCard imageUrl={album.cover} albumName={album.title} songs={album.songs}/>
+        </AccordionItem>
+)       
       }
 
-    </div>
+    </Accordion>
   );
 }
 
@@ -89,15 +92,15 @@ function AlbumCard(props){
   return (
     <div className="card-container">
       <img src={props.imageUrl}></img>
-      <Button active onClick={() => SetIsOpen(!isOpen)}>{props.albumName}</Button>
+      <AccordionButton active onClick={() => SetIsOpen(!isOpen)}>{props.albumName}</AccordionButton>
 
-      <div className={`songs-contanier ${isOpen ? "active" : ""}`}>
+      <AccordionPanel>
         {props.songs.map( (songname) =>
         <Card className='song-card' fluid >
           <Song songName={songname}/>
           </Card>
         )}
-      </div>
+      </AccordionPanel>
     </div>
   );
 }
